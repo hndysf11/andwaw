@@ -47,7 +47,7 @@ print(f"✅ spaCy model loaded from: {get_spacy_model_path()}")
 
 # === Sentence Type Classification ===
 def classify_sentence(sentence):
-    doc = nlp(sentence)
+    doc = get_nlp()(sentence)
 
     # Define clause-like dependency labels
     clause_like_deps = {"ccomp", "xcomp", "advcl", "relcl", "conj", "acl"}
@@ -212,7 +212,7 @@ def analyze_sentences_to_rows(sentences, include_embedded=False):
     for i, sentence in enumerate(sentences, 1):
         if not isinstance(sentence, str) or not sentence.strip():
             continue
-        doc = nlp(sentence)
+        doc = get_nlp()(sentence)
         sentence_type = classify_sentence(sentence)
 
         if sentence_type == "Complex":
