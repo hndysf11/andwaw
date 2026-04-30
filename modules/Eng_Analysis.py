@@ -25,7 +25,7 @@ def get_spacy_model_path():
     if getattr(sys, "frozen", False):
         # In frozen app, _MEIPASS points to Resources
         base = getattr(sys, "_MEIPASS", os.path.dirname(sys.executable))
-        model_dir = os.path.join(base, "spacy_models", "en_core_web_sm", "en_core_web_trf-3.8.0")
+        model_dir = os.path.join(base, "spacy_models", "en_core_web_sm", "en_core_web_sm-3.8.0")
         if os.path.exists(model_dir):
             return model_dir
         else:
@@ -35,7 +35,13 @@ def get_spacy_model_path():
     return "en_core_web_sm"
 
 # Load the model
-nlp = spacy.load(get_spacy_model_path())
+# nlp loaded lazily
+_nlp = None
+def get_nlp():
+    global _nlp
+    if _nlp is None:
+        _nlp = spacy.load(get_spacy_model_path())
+    return _nlp
 print(f"✅ spaCy model loaded from: {get_spacy_model_path()}")
 
 
