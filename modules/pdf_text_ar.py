@@ -36,7 +36,7 @@ def pdf_to_text_excel(pdf_path, output_txt, output_excel, lang="ara", dpi=200, c
                 dpi=dpi,
                 first_page=start,
                 last_page=end,
-                poppler_path="/usr/local/bin"  # folder containing Poppler binaries
+                poppler_path=os.environ.get("POPPLER_PATH", "/usr/bin")  # folder containing Poppler binaries
             )
 
             for page in tqdm(pages, desc=f"Processing pages {start}-{end}"):

@@ -20,7 +20,7 @@ except LookupError:
 pytesseract.pytesseract.tesseract_cmd = "/usr/local/bin/tesseract"
 
 def pdf_to_text_excel_english(pdf_path, output_txt, output_excel, lang="eng", progress_cb=None):
-    pages = convert_from_path(pdf_path, poppler_path="/usr/local/bin")
+    pages = convert_from_path(pdf_path, poppler_path=os.environ.get("POPPLER_PATH", "/usr/bin"))
     all_text = ""
 
     # OCR each page
