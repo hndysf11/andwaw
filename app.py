@@ -12,6 +12,7 @@ import json
 import queue
 import threading
 import traceback
+import traceback
 from pathlib import Path
 from flask import (Flask, render_template, request, jsonify,
                    send_file, Response, stream_with_context)
@@ -135,6 +136,8 @@ def api_pdf():
                 "file": os.path.basename(xlsx_path)
             })
         except Exception as e:
+            import traceback
+            _push(job_id, "error", {"msg": traceback.format_exc()})
             _push(job_id, "error", {"msg": str(e)})
         finally:
             if os.path.exists(pdf_path):
@@ -171,6 +174,8 @@ def api_en_analysis():
                 "file": os.path.basename(out_path)
             })
         except Exception as e:
+            import traceback
+            _push(job_id, "error", {"msg": traceback.format_exc()})
             _push(job_id, "error", {"msg": str(e)})
         finally:
             if os.path.exists(in_path):
@@ -204,6 +209,8 @@ def api_ar_analysis():
                 "file": os.path.basename(out_path)
             })
         except Exception as e:
+            import traceback
+            _push(job_id, "error", {"msg": traceback.format_exc()})
             _push(job_id, "error", {"msg": str(e)})
         finally:
             if os.path.exists(in_path):
@@ -239,6 +246,8 @@ def api_shifts():
                 "file": os.path.basename(out_path)
             })
         except Exception as e:
+            import traceback
+            _push(job_id, "error", {"msg": traceback.format_exc()})
             _push(job_id, "error", {"msg": str(e)})
         finally:
             for p in (en_path, ar_path):
