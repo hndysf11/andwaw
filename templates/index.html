@@ -89,8 +89,6 @@
       </div>
       <div class="field">
         <div class="check-row">
-          <input type="checkbox" id="en-embedded">
-          <label for="en-embedded">Include embedded clauses</label>
         </div>
       </div>
       <button class="btn" id="en-btn" onclick="runEn()">Analyze</button>
@@ -234,7 +232,7 @@ async function runEn() {
 
   const fd = new FormData();
   fd.append('excel', file);
-  fd.append('embedded', document.getElementById('en-embedded').checked);
+  fd.append('embedded', false);
 
   const res        = await fetch('/api/en_analysis', { method: 'POST', body: fd });
   const { job_id } = await res.json();
